@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!-- The above declaration defines this document as HTML5 -->
+
+<html>
+<!-- The <html> tag represents the root of an HTML document -->
+
+<head>
+    <!-- The <head> section contains meta-information about the document, like its title and links to scripts and stylesheets -->
+    <title>Hello World Form</title>
+    <!-- <title> defines the title of the document, shown in the browser's title bar or tab -->
+    <!-- js for form logic-->
+    <script src="form.js"></script>
+</head>
+
+<body>
+    <!-- The <body> tag contains the content of the HTML document that will be displayed in the browser -->
+
+    <form id="myForm">
+        <!-- <form> defines a form that collects user inputs
+             onsubmit is an event that triggers when the form is submitted -->
+
+        <input type="text" id="messageInput" name="message" placeholder="Enter your message">
+        <!-- <input> tag specifies where the user can enter data
+             type="text" defines it as a text field
+             id is used to identify this specific input field in the JavaScript
+             placeholder provides a hint about what to enter in the input field -->
+
+        <input type="submit" value="Submit">
+        <!-- Another <input> but with type="submit" which provides a button for submitting the form
+             The value attribute specifies the text on the button -->
+    </form>
+</body>
+</html>
