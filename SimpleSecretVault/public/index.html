@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>User and Post Form</title>
+</head>
+
+<body>
+    <h1>User and Post Management</h1>
+    <form id="userForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+        <button type="button" id="generateUsername">Generate Username</button>
+        <input type="submit" value="Create User">
+    </form>
+    <div id="result"></div>
+
+    <h2>Create New Post</h2>
+    <form id="postForm">
+        <label for="newPost">New Post:</label>
+        <input type="text" id="newPost" name="newPost">
+        <button type="button" id="postButton">Post</button>
+    </form>
+    
+    <h2>Fetch Posts for User</h2>
+    <button type="button" id="fetchButton">Fetch Posts</button>
+    <div id="postsResult"></div>
+
+    <script src="userform.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "simplesecretvault",
+  "version": "1.0.0",
+  "description": "This application demonstrates secure storage and retrieval of posts using encryption, where each user's username (kept secret) is used as the key for encryption and decryption. It features a front-end HTML form and a Node.js server with a MySQL database.",
+  "main": "db.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql": "^2.18.1"
+  }
+}
