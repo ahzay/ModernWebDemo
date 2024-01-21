@@ -23,7 +23,7 @@ function requestHandler(req, res) {
                 return res.end('Error loading ' + filePath);
             }
             res.writeHead(200);
-            res.end(data);
+            res.end(data); // completes response with data and sends it
         });        
     } else if (req.method === 'POST' && req.url === '/submit-form') {
         // If it's a POST request to '/submit-form', handle the form submission
