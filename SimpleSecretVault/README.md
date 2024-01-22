@@ -31,73 +31,32 @@ This application demonstrates secure storage and retrieval of posts using encryp
 
 ## Getting Started
 
-### Setting up the MySQL Database
+### Setting up the MySQL Database in Docker
 
-1. **Create a User 'dbuser' with Password 'dbuserpass'**
+This section assumes Docker is set up correctly to run from the user account. Use the provided script `run.sh` to automatically build the Docker image and run the container. This script will also create a data directory for MariaDB next to the Dockerfile. Ensure you have `Dockerfile` and `init.sql` in the same directory as `run.sh`.
 
-   Log in to MySQL/MariaDB as root:
+```bash
+./run.sh
+```
 
-   ```sql
-   mysql -u root -p
-   ```
+This script performs the following actions:
 
-   Then create 'dbuser':
+- Creates a data directory for MariaDB if it doesn't exist.
+- Sets the correct permissions for the data directory.
+- Builds a custom Docker image with MariaDB and the necessary initializations.
+- Runs the Docker container with the MariaDB service.
 
-   ```sql
-   CREATE USER 'dbuser'@'localhost' IDENTIFIED BY 'dbuserpass';
-   ```
-
-2. **Create a Database 'usersdb'**
-
-   Create the 'usersdb' database:
-
-   ```sql
-   CREATE DATABASE IF NOT EXISTS usersdb;
-   ```
-
-3. **Create Tables in 'usersdb'**
-
-   Create the 'users' table:
-
-   ```sql
-   USE usersdb;
-   CREATE TABLE IF NOT EXISTS users (
-       username VARCHAR(255) PRIMARY KEY
-   );
-   ```
-
-   Create the 'posts' table:
-
-   ```sql
-   CREATE TABLE IF NOT EXISTS posts (
-       id INT AUTO_INCREMENT PRIMARY KEY,
-       username VARCHAR(255) NOT NULL,
-       encryptedPost TEXT NOT NULL,
-       iv VARCHAR(255) NOT NULL,
-       salt VARCHAR(255) NOT NULL,
-       FOREIGN KEY (username) REFERENCES users(username)
-   );
-   ```
-
-4. **Grant Privileges to 'dbuser'**
-
-   Grant 'dbuser' all privileges on 'usersdb':
-
-   ```sql
-   GRANT ALL PRIVILEGES ON usersdb.* TO 'dbuser'@'localhost';
-   FLUSH PRIVILEGES;
-   ```
-
-   Exit MySQL/MariaDB:
-
-   ```sql
-   EXIT;
-   ```
+Note: Before running `run.sh`, ensure it has execute permissions (`chmod +x run.sh`). The script needs to be run from the directory where it's located.
 
 ### Usage
 
-1. Navigate to the application directory: `cd SimpleSecretVault`
-2. Install npm modules: `npm install`
-3. Start the server:
-   - Command line: `npm start`
-   - VSCode: Press `F5`
+- In a first terminal:
+   1. Navigate to the Docker directory: `cd SimpleSecretVault/DOCKER`
+   2. Modify run permissions: `sudo chmod +x run.sh`
+   3. Run the script: `./run.sh`
+- In a second terminal:
+   1. Navigate to the application directory: `cd SimpleSecretVault`
+   2. Install npm modules: `npm install`
+   3. Start the server:
+      - Command line: `npm start`
+      - VSCode: Press `F5`
