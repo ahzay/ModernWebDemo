@@ -1,37 +1,4 @@
-document.getElementById('userForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    const username = document.getElementById('username').value;
-    const resultDiv = document.getElementById('result');
-
-    fetch(`/users/check/${username}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.exists) {
-                resultDiv.innerHTML = 'User exists!';
-            } else {
-                // Add logic to create a new user
-                resultDiv.innerHTML = 'User does not exist. Creating user...';
-                fetch('/users/create', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ username }),
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        resultDiv.innerHTML = data.message;
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-});
+const hash = require("./hash")
 
 // Get references to the username field and the generate button
 const usernameField = document.getElementById("username");
@@ -52,7 +19,7 @@ function generateRandomString(length) {
 generateButton.addEventListener("click", () => {
     // Generate a 10-letter random string
     const randomUsername = generateRandomString(10);
-    
+
     // Set the generated username in the username field
     usernameField.value = randomUsername;
 });
@@ -72,9 +39,18 @@ postButton.addEventListener("click", () => {
     const newPost = newPostField.value.trim();
     // Add your logic to post a new message here
     if (username && newPost) {
-        // Perform the post action here (e.g., sending data to the server)
-        // You can use AJAX or fetch to send data to the server and handle the response
+        // API call for posting (internally if user does not exist it is created)
         // Clear the input field after posting
+        const hashPromise = HashString.hash(username);
+        // .then is called when the promise resolves with the hash value.
+        hashPromise.then(hashValue => {
+            // Handle the hash value once it's available.
+            console.log('Hash:', hashValue);
+        }).catch(error => {
+            // .catch is called if there's an error during the hashing process.
+            // Handle any errors that may occur during the hashing process.
+            console.error('Error:', error);
+        });  
         newPostField.value = "";
     } else {
         alert("Please enter a valid username and post.");
@@ -86,11 +62,12 @@ fetchButton.addEventListener("click", () => {
     const fetchUser = usernameField.value.trim();
     // Add your logic to fetch posts for a user here
     if (fetchUser) {
-        // Perform the fetch action here (e.g., sending a request to the server)
-        // You can use AJAX or fetch to retrieve data from the server and display it
+        // API call for fetching posts
         // Display the fetched posts in the postsResultDiv
         postsResultDiv.innerHTML = `Fetching posts for user: ${fetchUser}`;
     } else {
         alert("Please enter a valid username to fetch posts.");
     }
 });
+
+
